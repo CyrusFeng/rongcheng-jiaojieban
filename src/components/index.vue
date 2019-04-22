@@ -70,9 +70,17 @@
                     </div>
                 </div>
             </div>
-            <!--<div class="btn">查看车间详情</div>-->
-            <router-link :to="{name: 'list',
-                  params: {
+            <!--<div class="btn" @click="jump">查看车间详情</div>-->
+            <!--<router-link :to="{name: 'list',-->
+                  <!--params: {-->
+                    <!--orgNum: currentNum[0],-->
+                    <!--name:currentName,-->
+                    <!--date:date-->
+                  <!--}-->
+                <!--}" tag="div" class="btn">查看车间详情-->
+            <!--</router-link>-->
+            <router-link :to="{path: '/list/123',
+                  query: {
                     orgNum: currentNum[0],
                     name:currentName,
                     date:date
@@ -348,7 +356,18 @@
           strDate = "0" + strDate;
         }
         return year + seperator1 + month + seperator1 + strDate;
-      }
+      },
+      // jump(){
+      //   let id = Math.random() + 1;
+      //   let start = window.location.href.indexOf("/list");
+      //   let relUrl = window.location.href.slice(0, start);
+      //
+      //   let query = `?orgNum=${item.number}&name=${item.name}&date=${this.date}`;
+      //
+      //   window.location.href = relUrl + "/list/" + id + query;
+      //
+      //   this.$router.push({ path: '/list/123', params: { jlid: item.jlid }})
+      // }
     }
   }
 </script>

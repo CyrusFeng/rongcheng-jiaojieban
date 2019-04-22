@@ -27,12 +27,20 @@ export default new Router({
         index: 0
       }
     },
+    // {
+    //   path: '/list',
+    //   name: 'list',
+    //   component: List,
+    //   meta: {
+    //     index: 1
+    //   }
+    // },
     {
-      path: '/list',
-      name: 'list',
+      path: "/list/:id",
+      name: "list",
       component: List,
       meta: {
-        index: 1
+        index: 2
       }
     },
     {
@@ -40,7 +48,7 @@ export default new Router({
       name: 'ban',
       component: Ban,
       meta: {
-        index: 2
+        index: 3
       }
     },
     {
@@ -48,7 +56,7 @@ export default new Router({
       name: 'detail',
       component: Detail,
       meta: {
-        index: 3
+        index: 4
       }
     },
     {
@@ -56,7 +64,7 @@ export default new Router({
       name: 'details',
       component: Details,
       meta: {
-        index: 3
+        index: 4
       }
     },
     {
@@ -64,7 +72,7 @@ export default new Router({
       name: 'error',
       component: Error,
       meta: {
-        index: 4
+        index: 5
       }
     },
     {

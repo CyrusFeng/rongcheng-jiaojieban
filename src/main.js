@@ -24,8 +24,8 @@ Vue.prototype.$controlLength = function (str, len) {
   return str.length > 6 ? str.slice(0, len) + '...' : str
 }
 Vue.prototype.$url = {
-  domain:'192.168.1.106',
-  // domain:'111.160.97.27',
+  // domain:'192.168.1.106',
+  domain:'111.160.97.27',
   // domain:'localhost',
   port:'8081'
 }

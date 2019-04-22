@@ -27,14 +27,15 @@
                             <div class="right">
                                 <!--<a href="">查看班组</a>-->
 
-                                <router-link v-if="item.isSpecific === 0 && item.itemList.length !== 0" :to="{name: 'list',
-                              params: {
-                                orgNum: item.number,
-                                name:item.name,
-                                date:date
-                              },
-                              query: {random: Math.random(),orgNum:item.number}
-                            }">查看详情</router-link>
+                                <!--<router-link v-if="item.isSpecific === 0 && item.itemList.length !== 0" :to="{name: 'list',-->
+                              <!--params: {-->
+                                <!--orgNum: item.number,-->
+                                <!--name:item.name,-->
+                                <!--date:date-->
+                              <!--},-->
+                              <!--query: {random: Math.random(),orgNum:item.number}-->
+                            <!--}">查看详情</router-link>-->
+                                <a v-if="item.isSpecific === 0 && item.itemList.length !== 0" @click="reJoin(item)">查看详情</a>
                                 <router-link v-else-if="item.isSpecific === 1 && item.itemList.length !== 0" :to="{name: 'ban',
                               params: {
                                 id: item.id,
@@ -111,9 +112,9 @@
 
         if (from.path === '/') {
           console.log('vm.$route.params.orgNum', vm.$route.params.orgNum);
-          if (vm.$route.params.orgNum) {
+          if (vm.$route.query.orgNum) {
             // let orgNum = vm.$route.params.orgNum
-            let {orgNum,name,date} = vm.$route.params
+            let {orgNum,name,date} = vm.$route.query
             vm.orgNum = orgNum
             vm.name = name
             vm.date = date
@@ -199,17 +200,36 @@
       })
     },
     beforeRouteUpdate (to, from, next) {
-      if (from.path === '/' || from.path === '/list') {
-        console.log('this.$route.params.orgNum', this.$route.params.orgNum);
-        console.log('this.$route.params.orgNum', this.$route.query.orgNum);
-        console.log('this.$route.params.orgNum', this.$route.query);
-        console.log('from。query', from.query);
-        console.log('from。params', from.params);
-        console.log('to。params', to.query);
-        console.log('to。params', to.params);
-        if (to.params.orgNum) {
+      // if (from.path === '/' || from.path === '/list') {
+      //   console.log('to', to);
+      //   console.log('from', from);
+      //   if (to.params.orgNum) {
+      //     // let orgNum = this.$route.params.orgNum
+      //     let {orgNum,name,date} = to.params
+      //     this.orgNum = orgNum
+      //     this.name = name
+      //     this.date = date
+      //     localStorage.setItem('orgNum', orgNum)
+      //     localStorage.setItem('name', name)
+      //     localStorage.setItem('date', date)
+      //   } else {
+      //     this.orgNum = localStorage.getItem('orgNum')
+      //     this.name = localStorage.getItem('name')
+      //     this.date = localStorage.getItem('date')
+      //   }
+      // } else {
+      //   this.orgNum = localStorage.getItem('orgNum')
+      //   this.name = localStorage.getItem('name')
+      //   this.date = localStorage.getItem('date')
+      // }
+
+
+      if (from.path === '/' || from.name === 'list') {
+        console.log('to', to);
+        console.log('from', from);
+        if (to.query.orgNum) {
           // let orgNum = this.$route.params.orgNum
-          let {orgNum,name,date} = to.params
+          let {orgNum,name,date} = to.query
           this.orgNum = orgNum
           this.name = name
           this.date = date
@@ -226,7 +246,7 @@
         this.name = localStorage.getItem('name')
         this.date = localStorage.getItem('date')
       }
-      // alert('beforeRouteUpdate')
+
       // axios.get('http://www.doclever.cn:8090/mock/5ca2c535c273b90cd820e664/getSubList', {
       let url = `http://${this.$url.domain}:${this.$url.port}/rcapp/org/next`
       axios.get(url, {
@@ -331,6 +351,15 @@
           this.interfaceName = 'queryByNumbers'
         })
       },
+      reJoin(item){
+        let id = Math.random() + 1;
+        let start = window.location.href.indexOf("/list");
+        let relUrl = window.location.href.slice(0, start);
+
+        let query = `?orgNum=${item.number}&name=${item.name}&date=${this.date}`;
+
+        window.location.href = relUrl + "/list/" + id + query;
+      }
     }
   }
 </script>
